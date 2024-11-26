@@ -217,7 +217,7 @@ h2 {
   }
 
   .block3{
-    overflow-y: scroll;   /* Adds a vertical scrollbar */
+    overflow-y: scroll;
     overflow-x: hidden; 
   }
 }

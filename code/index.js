@@ -43,13 +43,26 @@ function maxNumbersSubmitHandler(event) {
   event.preventDefault();
   const form = event.target;
   let numbers = [];
+  let hasError = false;
+
+  // Loop through all input fields
   for (let i = 1; i <= 10; i++) {
-    numbers.push(parseFloat(form[`num${i}`].value));
+    const value = form[`num${i}`].value;
+    if (value === '' || isNaN(value)) {
+      hasError = true; // If any field is empty or not a number, set error flag
+      break;
+    }
+    numbers.push(parseFloat(value));
   }
-  const max = Math.max(...numbers);
-  const maxCount = numbers.filter(num => num === max).length;
-  alert(`Maximum value: ${max}, Count: ${maxCount}`);
-  document.cookie = `maxValues=${maxCount}; path=/`;
+
+  if (hasError) {
+    alert("Error: All fields must contain numbers.");
+  } else {
+    const max = Math.max(...numbers);
+    const maxCount = numbers.filter(num => num === max).length;
+    alert(`Maximum value: ${max}, Count: ${maxCount}`);
+    document.cookie = `maxValues=${maxCount}; path=/`;
+  }
 }
 
 function initializeBlocksFromLocalStorage() {
